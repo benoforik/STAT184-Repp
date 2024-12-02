@@ -1,0 +1,47 @@
+---
+title: "Quarto2"
+format: html
+editor: visual
+---
+
+## Quarto Ben Ofori-Kuragu
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+#| echo: false
+# Define the function
+h <- function(x) {
+  (cos(4 * x) + tan(0.5 * x))^4
+}
+
+# Plot the function over the interval [0, 1]
+curve(h, from = 0, to = 1, xlab = "x", ylab = "h(x)", main = "Plot of h(x) over [0, 1]")
+
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: true
+# Load necessary packages
+library(dplyr)
+library(babynames)
+
+# Define the names of interest
+selected_names <- c("Alice", "John", "Emma")  # Replace with your chosen names
+
+# Filter and wrangle the babynames data to focus on selected names
+wrangled_data <- babynames %>%
+  filter(name %in% selected_names) %>%  # Keep only selected names
+  group_by(year, name, sex) %>%  # Group by year, name, and gender
+  summarise(total_count = sum(n), .groups = "drop")  # Sum counts by year and gender
+
+# View wrangled data
+head(wrangled_data)
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
